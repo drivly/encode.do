@@ -1,6 +1,6 @@
 # encode.do - Base64 Encode API
 
-Encode a Text value: <https://decode.do/Hello+World!>
+Encode a Text value: <https://encode.do/Hello+World!>
 
 ```json
 {
@@ -24,7 +24,7 @@ Encode a Text value: <https://decode.do/Hello+World!>
 }
 ```
 
-Encode a JSON Object: <https://decode.do/?hello=world>
+Encode a JSON Object: <https://encode.do/?hello=world>
 
 ```json
 {
