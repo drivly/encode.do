@@ -1,17 +1,17 @@
 export const api = {
   icon: '🔐',
-  name: 'decode.do',
-  description: 'Base64 Decode API',
-  url: 'https://decode.do/api',
+  name: 'encode.do',
+  description: 'Base64 Encode API',
+  url: 'https://encode.do/api',
   type: 'https://apis.do/utilities',
   endpoints: {
-    decode: 'https://decode.do/:encodedString',
+    decode: 'https://encode.do/:stringToEncode',
   },
-  site: 'https://decode.do',
-  login: 'https://decode.do/login',
-  signup: 'https://decode.do/signup',
-  subscribe: 'https://decode.do/subscribe',
-  repo: 'https://github.com/drivly/decode.do',
+  site: 'https://encode.do',
+  login: 'https://encode.do/login',
+  signup: 'https://encode.do/signup',
+  subscribe: 'https://encode.do/subscribe',
+  repo: 'https://github.com/drivly/encode.do',
 }
 
 export const gettingStarted = [
