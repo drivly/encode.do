@@ -28,7 +28,7 @@ export const examples = {
 export default {
   fetch: async (req, env) => {
     const { user, hostname, pathname, rootPath, pathSegments, query } = await env.CTX.fetch(req).then(res => res.json())
-    if (!query && (rootPath || pathSegments[0] === 'api')) return json({ api, gettingStarted, examples, user })
+    if (!query && rootPath) return json({ api, gettingStarted, examples, user })
 
     let value = pathSegments[pathSegments.length - 1]
     if (pathSegments[0] === 'url') {
