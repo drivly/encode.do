@@ -5,7 +5,8 @@ export const api = {
   url: 'https://encode.do/api',
   type: 'https://apis.do/utilities',
   endpoints: {
-    decode: 'https://encode.do/:stringToEncode',
+    encodeText: 'https://encode.do/:stringToEncode',
+    encodeFile: 'https://encode.do/url/:fileToEncode',
   },
   site: 'https://encode.do',
   login: 'https://encode.do/login',
@@ -20,27 +21,25 @@ export const gettingStarted = [
 ]
 
 export const examples = {
-  "Decode String": 'https://encode.do/Hello, World!',
-  "Decode JSON": 'https://encode.do/?hello=world',
+  "Encode String": 'https://encode.do/Hello, World!',
+  "Encode JSON": 'https://encode.do/?hello=world',
 }
 
 export default {
   fetch: async (req, env) => {
     const { user, hostname, pathname, rootPath, pathSegments, query } = await env.CTX.fetch(req).then(res => res.json())
     if (!query && rootPath) return json({ api, gettingStarted, examples, user })
+
+    let value = pathSegments[pathSegments, length - 1]
+    if (pathSegments[0] === 'url') {
+      const buffer = await fetch(value).then(res => res.arrayBuffer())
+      value = btoa(String.fromCharCode(new Uint8Array(buffer)))
+    }
+    else if (query) value = JSON.stringify(query)
     
-    // TODO: Implement this
-    const [ value ] = pathSegments
-    const encoded = query ? btoa(JSON.stringify(query)) : btoa(value)
-    
-    // let encoded = encodedValue 
-    
-    // try {
-    //   decoded = JSON.parse(decodedValue)
-    // } catch { }
-    
+    const encoded = btoa(value)
     return json({ api, encoded, decoded: query ? query : value, user })
   }
 }
 
-const json = obj => new Response(JSON.stringify(obj, null, 2), { headers: { 'content-type': 'application/json; charset=utf-8' }})
+const json = obj => new Response(JSON.stringify(obj, null, 2), { headers: { 'content-type': 'application/json; charset=utf-8' } })
