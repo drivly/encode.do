@@ -40,7 +40,7 @@ export default {
     } else if (hasQuery) value = JSON.stringify(query)
 
     const encoded = btoa(value)
-    return json({ api, encoded, decoded: hasQuery ? query : value, user })
+    return json({ api, encoded, decoded: hasQuery ? query : isUrl ? undefined : value, user })
   },
 }
 
