@@ -30,9 +30,9 @@ export default {
     const isUrl = pathSegments[0] === 'url'
     if (!hasQuery && (rootPath || (isUrl && pathSegments.length === 1))) return json({ api, gettingStarted, examples, user })
 
-    let value = pathname
+    let value = decodeURIComponent(pathname.substring(1))
     if (isUrl) {
-      const buffer = await fetch(decodeURIComponent(value.substring(5))).then((res) => res.arrayBuffer())
+      const buffer = await fetch(value.substring(4)).then((res) => res.arrayBuffer())
       value = ''
       new Uint8Array(buffer).forEach((byte) => {
         value += String.fromCharCode(byte)
