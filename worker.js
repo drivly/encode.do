@@ -28,14 +28,16 @@ export const examples = {
 export default {
   fetch: async (req, env) => {
     const { user, hostname, pathname, rootPath, pathSegments, query } = await env.CTX.fetch(req).then(res => res.json())
-    if (!query && rootPath) return json({ api, gettingStarted, examples, user })
+    const hasQuery = Object.entries(query).length > 0
+)
+    if (!hasQuery && rootPath) return json({ api, gettingStarted, examples, user })
 
     let value = pathSegments[pathSegments.length - 1]
     if (pathSegments[0] === 'url') {
       const buffer = await fetch(value).then(res => res.arrayBuffer())
       value = btoa(String.fromCharCode(new Uint8Array(buffer)))
     }
-    else if (query) value = JSON.stringify(query)
+    else if (hasQuery) value = JSON.stringify(query)
 
     const encoded = btoa(value)
     return json({ api, encoded, decoded: query ? query : value, user })
