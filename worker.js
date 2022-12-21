@@ -20,27 +20,27 @@ export const gettingStarted = [`If you don't already have a JSON Viewer Browser 
 export const examples = {
   'Encode String': 'https://encode.do/Hello, World!',
   'Encode JSON': 'https://encode.do/?hello=world',
+  'Encode File': 'https://encode.do/url/https://encode.do/api',
 }
 
 export default {
   fetch: async (req, env) => {
-    const { user, hostname, pathname, rootPath, pathSegments, query } = await env.CTX.fetch(req).then((res) => res.json())
+    const { user, pathname, rootPath, pathSegments, query } = await env.CTX.fetch(req).then((res) => res.json())
     const hasQuery = Object.entries(query).length > 0
     const isUrl = pathSegments[0] === 'url'
     if (!hasQuery && (rootPath || (isUrl && pathSegments.length === 1))) return json({ api, gettingStarted, examples, user })
 
-    let value = pathSegments[pathSegments.length - 1]
+    let value = pathname
     if (isUrl) {
-      const buffer = await fetch(decodeURIComponent(value)).then((res) => res.arrayBuffer())
+      const buffer = await fetch(decodeURIComponent(value.substring(5))).then((res) => res.arrayBuffer())
       value = ''
       new Uint8Array(buffer).forEach((byte) => {
         value += String.fromCharCode(byte)
       })
-      value = btoa(value)
     } else if (hasQuery) value = JSON.stringify(query)
 
     const encoded = btoa(value)
-    return json({ api, encoded, decoded: query ? query : value, user })
+    return json({ api, encoded, decoded: hasQuery ? query : value, user })
   },
 }
 
