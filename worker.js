@@ -34,7 +34,7 @@ export default {
 
     let value = pathSegments[pathSegments.length - 1]
     if (pathSegments[0] === 'url') {
-      const buffer = await fetch(value).then(res => res.arrayBuffer())
+      const buffer = await fetch(decodeURIComponent(value)).then(res => res.arrayBuffer())
       value = btoa(String.fromCharCode(new Uint8Array(buffer)))
     }
     else if (hasQuery) value = JSON.stringify(query)
