@@ -30,7 +30,7 @@ export default {
     const { user, hostname, pathname, rootPath, pathSegments, query } = await env.CTX.fetch(req).then(res => res.json())
     if (!query && (rootPath || pathSegments[0] === 'api')) return json({ api, gettingStarted, examples, user })
 
-    let value = pathSegments[pathSegments, length - 1]
+    let value = pathSegments[pathSegments.length - 1]
     if (pathSegments[0] === 'url') {
       const buffer = await fetch(value).then(res => res.arrayBuffer())
       value = btoa(String.fromCharCode(new Uint8Array(buffer)))
