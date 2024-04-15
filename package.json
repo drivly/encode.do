@@ -1,0 +1,16 @@
+{
+  "name": "encode.do",
+  "version": "1.0.0",
+  "main": "worker.js",
+  "repository": "git@github.com:drivly/encode.do.git",
+  "author": "Samuel Lippert <samuel@driv.ly>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "wrangler dev worker.js",
+    "deploy": "wrangler publish worker.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "wrangler": "^3.50.0"
+  }
+}
